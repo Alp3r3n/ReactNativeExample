@@ -10,6 +10,7 @@ import {
   View,
   Button,
   RefreshControl,
+  FlatList,
 } from 'react-native';
 
 import {
@@ -23,48 +24,68 @@ import {
 const App = () => {
   
   const [Items ,setItems] = useState([
-    { key: 1, item: 'Item1' },
-    { key: 2, item: 'Item2' },
-    { key: 3, item: 'Item3' },
-    { key: 4, item: 'Item4' },
-    { key: 5, item: 'Item5' },
-    { key: 6, item: 'Item6' },
-    { key: 7, item: 'Item7' },
-    { key: 8, item: 'Item8' },
-    { key: 9, item: 'Item9' },
-    { key: 10, item: 'Item10' },
-    { key: 11, item: 'Item11' },
+    {  name: 'Item 1' },
+    {  name: 'Item 2' },
+    {  name: 'Item 3' },
+    {  name: 'Item 4' },
+    {  name: 'Item 5' },
+    {  name: 'Item 6' },
+    {  name: 'Item 7' },
+    {  name: 'Item 8' },
+    {  name: 'Item 9' },
+    {  name: 'Item 10' },
+    {  name: 'Item 11' },
+    {  name: 'Item 12' },
+    {  name: 'Item 13' },
   ]);
+  const DATA = [
+    {
+      title: 'Title 1',
+      data: ['Item 2-1', 'Item 2-2', 'Item 2-3'],
+    },
+    {
+      title: 'Title 2',
+      data: ['Item 2-1', 'Item 2-2', 'Item 2-3'],
+    },
+    {
+      title: 'Title 3',
+      data: ['Item 3-1'],
+    },
+    {
+      title: 'Title 4',
+      data: ['Item 4-1', 'Item 4-2'],
+    },
+  ]
+
+// Sayfa yenileme fonksiyonlarını çalıştırır.
 
   const [Refreshing, setRefreshing] = useState(false)
 
   const onRefresh = () => {
     setRefreshing(true);
-    setItems([...Items, {key: 69, item: 'Item 69'}]);
+    setItems([...Items, {name: 'Item 69'}]);
     setRefreshing(false);
   }
 
+// Üstteki fonksiyon birden fazla kez dönüyor ve sayfa yenilemesini kontrol ediyor ayrıca içerisine item69 u ekliyor.
+
   return (
-      <ScrollView
-       style = {styles.body}
-       refreshControl={
-        <RefreshControl
-          refreshing = { Refreshing }
-          onRefresh= {onRefresh}
-          colors = {['#ff00ff']}
-        />
-       }
-       >
-        {
-          Items.map((item) => {
-            return(
-              <View style = {styles.item}>
-                <Text style = {styles.text}>{item.item}</Text>
-              </View>
-            )
-          })
-        }
-      </ScrollView>
+    <FlatList
+    keyExtractor={(item,index) => index.toString()}
+    data = {Items}
+    renderItem={({item}) => (
+      <View style = {styles.item}>
+        <Text style = {styles.text}>{item.name}</Text>
+      </View>
+    )}
+    refreshControl={
+      <RefreshControl
+        refreshing = { Refreshing }
+        onRefresh= {onRefresh}
+        colors = {['#ff000f']}
+      />
+     }
+    />
   );
 }; 
 
@@ -84,8 +105,7 @@ const styles = StyleSheet.create({
     color:'#000000',
     fontSize: 45,
     fontStyle: 'italic',
-    margin: 10, 
-    textTransform: 'uppercase',
+    margin: 10,
   },
 });
 
