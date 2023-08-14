@@ -11,6 +11,7 @@ import {
   Button,
   RefreshControl,
   FlatList,
+  SectionList,
 } from 'react-native';
 
 import {
@@ -41,7 +42,7 @@ const App = () => {
   const DATA = [
     {
       title: 'Title 1',
-      data: ['Item 2-1', 'Item 2-2', 'Item 2-3'],
+      data: ['Item 1-1', 'Item 1-2', 'Item 1-3'],
     },
     {
       title: 'Title 2',
@@ -57,7 +58,6 @@ const App = () => {
     },
   ]
 
-// Sayfa yenileme fonksiyonlarını çalıştırır.
 
   const [Refreshing, setRefreshing] = useState(false)
 
@@ -67,25 +67,45 @@ const App = () => {
     setRefreshing(false);
   }
 
-// Üstteki fonksiyon birden fazla kez dönüyor ve sayfa yenilemesini kontrol ediyor ayrıca içerisine item69 u ekliyor.
 
   return (
-    <FlatList
-    keyExtractor={(item,index) => index.toString()}
-    data = {Items}
-    renderItem={({item}) => (
-      <View style = {styles.item}>
-        <Text style = {styles.text}>{item.name}</Text>
-      </View>
-    )}
-    refreshControl={
-      <RefreshControl
-        refreshing = { Refreshing }
-        onRefresh= {onRefresh}
-        colors = {['#ff000f']}
+    
+    <SectionList
+      keyExtractor = {(item, index) => index.toString()}
+      sections = {DATA}
+      renderItem = {({ item }) => (
+        <Text style = {styles.text}>{item}</Text>
+      )}
+      renderSectionHeader={({section}) => (
+        <View style = {styles.item}>
+          <Text style = {styles.text}>{section.title}</Text>
+        </View>
+      )}
+        refreshControl={
+          <RefreshControl
+            refreshing = { Refreshing }
+            onRefresh={onRefresh}
+            colors = {['#ff000f']} 
+            /> 
+          }
+        />
+    /* <FlatList
+        keyExtractor={(item,index) => index.toString()}
+        data = {Items}
+        renderItem={({item}) => (
+          <View style = {styles.item}>
+            <Text style = {styles.text}>{item.name}</Text>
+          </View>
+        )}
+        refreshControl={
+          <RefreshControl
+            refreshing = { Refreshing }
+            onRefresh= {onRefresh}
+            colors = {['#ff000f']}
+          />
+        }
       />
-     }
-    />
+    */
   );
 }; 
 
