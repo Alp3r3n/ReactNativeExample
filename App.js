@@ -13,6 +13,10 @@ import {
   FlatList,
   SectionList,
   TextInput,
+  Touchable,
+  TouchableOpacity,
+  TouchableHighlight,
+  Pressable,
 } from 'react-native';
 
 import {
@@ -27,6 +31,7 @@ const App = () => {
 
   const [name, SetName] = useState('');
   const [submitted, SetSubmitted] = useState(false);
+  const [deneme1, deneme2] = useState(false);
   const onPressHandler = () => {
     SetSubmitted(!submitted);
   }
@@ -41,11 +46,49 @@ const App = () => {
        placeholder = 'e.g. Alperen'
        onChangeText = {(value) => SetName(value)}
       />
+      {/*
       <Button 
         title = {submitted ? 'Clear' : 'Submit'}
         onPress = {onPressHandler}
         color = '#00f'
       />
+      */}
+
+      {/*
+      <TouchableHighlight
+        style = {styles.button}
+        onPress = {onPressHandler}
+        activeOpacity = {0.2}
+        underlayColor = '#0ff'
+      >
+        <Text style = {styles.text}>
+          {submitted ? 'Clear' : 'Submit'}
+        </Text>
+      </TouchableHighlight>
+      */}
+
+      <Pressable 
+        onPress = {onPressHandler}
+        style = {({ pressed }) => [
+          {backgroundColor: pressed ? '#0ff' : '#00ff00'},
+          styles.button
+        ]}
+      >
+        <Text style = {styles.text}>
+          {submitted ? 'Clear' : 'Submit'}
+        </Text>
+      </Pressable>
+
+      {/*
+      <TouchableOpacity
+        style = {styles.button1}
+      >
+        <Text style = {styles.text}>
+          :D
+        </Text>
+      </TouchableOpacity>
+      */}
+
       {submitted ?
         <Text style = {styles.text}>
           Your name is: {name}
@@ -77,6 +120,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     marginBottom: 10,
+  },
+  button: {
+    width: 150,
+    height: 50,
+    alignItems: 'center',
+  },
+  button1: {
+    width: 150,
+    backgroundColor: '#f0ff00',
+    borderColor: '#00f',
+    borderRadius: 4,
+    alignItems: 'center',
   },
 });
 
