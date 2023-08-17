@@ -1,25 +1,13 @@
 import React, { useState } from 'react';
 import {
-  Linking,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
-  Button,
-  RefreshControl,
-  FlatList,
-  SectionList,
   TextInput,
-  Touchable,
-  TouchableOpacity,
-  TouchableHighlight,
   Pressable,
-  Alert,
-  ToastAndroid,
   Modal,
+  Image,
+  ImageBackground,
 } from 'react-native';
 
 import {
@@ -46,7 +34,10 @@ const App = () => {
   }
 
   return (
-    <View style = {styles.body}>
+    <ImageBackground 
+      style = {styles.body}
+      source = {{uri: 'https://cdn.pixabay.com/photo/2013/07/12/12/35/texture-145968_960_720.png'}}  
+    >
       <Modal
         visible = {showWarning}
         transparent
@@ -94,13 +85,24 @@ const App = () => {
       </Pressable>
 
       {submitted ?
-        <Text style = {styles.text}>
-          Your name is: {name}
-        </Text>
-        :
-        null
+        <View style = {styles.body}>
+          <Text style = {styles.text}>
+            You are registered as {name}
+          </Text>
+          <Image
+            style = {styles.image}
+            source = {require('./assets/done.png')} 
+            resizeMode = 'stretch'
+          />
+        </View>
+          :
+          <Image
+            style = {styles.image}
+            source = {require('./assets/error.png')} 
+            resizeMode = 'stretch'
+          />
       }  
-      </View>
+      </ImageBackground>
   );
 }; 
 
@@ -108,7 +110,6 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#ffffff',
     alignItems: 'center',
   },
   text : {
@@ -163,6 +164,11 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     borderColor: '#000',
+  },
+  image: {
+    width: 100,
+    height: 100,
+    margin: 10,
   },
 });
 
