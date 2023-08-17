@@ -17,6 +17,9 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   Pressable,
+  Alert,
+  ToastAndroid,
+  Modal,
 } from 'react-native';
 
 import {
@@ -32,12 +35,43 @@ const App = () => {
   const [name, SetName] = useState('');
   const [submitted, SetSubmitted] = useState(false);
   const [deneme1, deneme2] = useState(false);
+  const [showWarning, SetshowWarning] = useState(false);
   const onPressHandler = () => {
-    SetSubmitted(!submitted);
+    if (name.length > 3) {
+      SetSubmitted(!submitted);
+    }
+    else {
+      SetshowWarning(true);
+    }
   }
 
   return (
     <View style = {styles.body}>
+      <Modal
+        visible = {showWarning}
+        transparent
+        onRequestClose={() => SetshowWarning(false)}
+        animationType='fade'
+        hardwareAccelerated
+      >
+      <View style = {styles.centered_view}>
+        <View style = {styles.warning_modal}>
+          <View style = {styles.warning_title}>
+            <Text style = {styles.text}>WARNING!</Text>
+          </View>
+            <View style = {styles.warning_body}>
+              <Text style = {styles.text}>The name must be longer than 3 characters</Text>
+            </View>
+            <Pressable
+              onPress={() => SetshowWarning(false)}
+              style = {styles.warning_button}
+              android_ripple={{color:'#fff'}}
+            >
+              <Text style = {styles.text}>OK</Text>
+            </Pressable>
+        </View>
+      </View>
+      </Modal>
       <Text style = {styles.text}>
         Please write your name:
       </Text>
@@ -46,26 +80,6 @@ const App = () => {
        placeholder = 'e.g. Alperen'
        onChangeText = {(value) => SetName(value)}
       />
-      {/*
-      <Button 
-        title = {submitted ? 'Clear' : 'Submit'}
-        onPress = {onPressHandler}
-        color = '#00f'
-      />
-      */}
-
-      {/*
-      <TouchableHighlight
-        style = {styles.button}
-        onPress = {onPressHandler}
-        activeOpacity = {0.2}
-        underlayColor = '#0ff'
-      >
-        <Text style = {styles.text}>
-          {submitted ? 'Clear' : 'Submit'}
-        </Text>
-      </TouchableHighlight>
-      */}
 
       <Pressable 
         onPress = {onPressHandler}
@@ -78,16 +92,6 @@ const App = () => {
           {submitted ? 'Clear' : 'Submit'}
         </Text>
       </Pressable>
-
-      {/*
-      <TouchableOpacity
-        style = {styles.button1}
-      >
-        <Text style = {styles.text}>
-          :D
-        </Text>
-      </TouchableOpacity>
-      */}
 
       {submitted ?
         <Text style = {styles.text}>
@@ -111,11 +115,12 @@ const styles = StyleSheet.create({
     color:'#000000',
     fontSize: 20,
     margin: 10,
+    textAlign: 'center',
   },
   input: {
     width: 200,
     borderWidth: 1, 
-    borderColor: '#555',
+    borderColor: '#555', 
     borderRadius: 5,
     textAlign: 'center',
     fontSize: 20,
@@ -126,12 +131,38 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
   },
-  button1: {
-    width: 150,
-    backgroundColor: '#f0ff00',
-    borderColor: '#00f',
-    borderRadius: 4,
+  centered_view: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#00000099'
+  },
+  warning_modal: {
+    width: 300,
+    height: 300,
+    backgroundColor: '#ffff',
+    borderWidth: 1,
+    borderColor: '#000',
+    borderRadius: 20,
+  },
+  warning_title: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ff0',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+  },
+  warning_body: {
+    height: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  warning_button: {
+    backgroundColor: '#00ffff',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    borderColor: '#000',
   },
 });
 
