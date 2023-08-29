@@ -8,6 +8,8 @@ import {
   Modal,
   Image,
   ImageBackground,
+  ToastAndroid,
+  Alert,
 } from 'react-native';
 
 import {
@@ -17,6 +19,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import MashButton from './CustomButton';
 
 const App = () => {
 
@@ -72,6 +75,7 @@ const App = () => {
        onChangeText = {(value) => SetName(value)}
       />
 
+    {/*  
       <Pressable 
         onPress = {onPressHandler}
         style = {({ pressed }) => [
@@ -83,7 +87,13 @@ const App = () => {
           {submitted ? 'Clear' : 'Submit'}
         </Text>
       </Pressable>
+    */}
 
+      <MashButton
+        onPressFunction = {onPressHandler}
+        title = {submitted ? 'Clear' : 'Submit'}
+      />
+  
       {submitted ?
         <View style = {styles.body}>
           <Text style = {styles.text}>
@@ -112,7 +122,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  text : {
+  text: {
     color:'#000000',
     fontSize: 20,
     margin: 10,
@@ -170,6 +180,7 @@ const styles = StyleSheet.create({
     height: 100,
     margin: 10,
   },
+  
 });
 
 export default App;
