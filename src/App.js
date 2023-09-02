@@ -15,11 +15,11 @@ import {
 import {
   Colors,
   DebugInstructions,
-  Header,
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import MashButton from './CustomButton';
+import Header from './Header';
 
 const App = () => {
 
@@ -41,6 +41,7 @@ const App = () => {
       style = {styles.body}
       source = {{uri: 'https://cdn.pixabay.com/photo/2013/07/12/12/35/texture-145968_960_720.png'}}  
     >
+      <Header/>
       <Modal
         visible = {showWarning}
         transparent
@@ -92,8 +93,16 @@ const App = () => {
       <MashButton
         onPressFunction = {onPressHandler}
         title = {submitted ? 'Clear' : 'Submit'}
+        color = {'#00ff00'}
       />
-  
+
+      <MashButton
+        onPressFunction = {() => { }}
+        title = {'Test'}
+        color = {'#ff00ff'}
+        style = {{margin:10}}
+      />  
+
       {submitted ?
         <View style = {styles.body}>
           <Text style = {styles.text}>
@@ -101,14 +110,14 @@ const App = () => {
           </Text>
           <Image
             style = {styles.image}
-            source = {require('./assets/done.png')} 
+            source = {require('../assets/done.png')} 
             resizeMode = 'stretch'
           />
         </View>
           :
           <Image
             style = {styles.image}
-            source = {require('./assets/error.png')} 
+            source = {require('../assets/error.png')} 
             resizeMode = 'stretch'
           />
       }  
@@ -141,6 +150,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 50,
     alignItems: 'center',
+    borderRadius: 10,
   },
   centered_view: {
     flex: 1,

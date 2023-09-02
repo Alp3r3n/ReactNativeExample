@@ -12,8 +12,9 @@ const MashButton = (props) => {
             hitSlop={{ top: 10, bottom: 10, right: 10, left: 10 }}
             android_ripple={{ color: '#00f' }}
             style={({ pressed }) => [
-                { backgroundColor: pressed ? '##0ff' : '#00ff00' },
+                { backgroundColor: pressed ? '#dddddd' : props.color },
                 styles.button,
+                {...props.style}
             ]}
         >
             <Text style={styles.text}>
